@@ -1,46 +1,33 @@
+const pokemonList = document.getElementById('pokemonList')
+const loadMoreButton = document.getElementById('loadMoreButton')
+
+const maxRecords = 151
+const limit = 15
+let offset = 0;
 
 function convertPokemonToLi(pokemon) {
     return `
-            <li class="pokemon" ${pokemon.type}>
-                    <span class="number">#${pokemon.number}</span>
-                    <span class="name">${pokemon.name}</span>
-                
-                    <div class="detail">
+        <li class="pokemon ${pokemon.type}">
+            <span class="number">#${pokemon.number}</span>
+            <span class="name">${pokemon.name}</span>
 
-                        <ol class="types">
-                            ${pokemon.types.map((type)=> `<li class="type">${type}</li>`).join('')}
-                        </ol>
+            <div class="detail">
+                <ol class="types">
+                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                </ol>
 
-                        <img src="${pokemon.photo}" alt="${pokemon.name}">
-                    </div>
-
-            </li>
-        `
+                <img src="${pokemon.photo}"
+                     alt="${pokemon.name}">
+            </div>
+        </li>
+    `
 }
 
-const pokemonList = document.getElementById('list');
+function loadPokemonItens(offset, limit) {
+    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+        const newHtml = pokemons.map(convertPokemonToLi).join('')
+        pokemonList.innerHTML += newHtml
+    })
+}
 
-
-
-pokeApi.getPokemons().then((pokemons = []) => {                      //Essa requisição mapeia os arrays da url e as transforma em strings. Após isso, adicona na lista em html. Essa é a versão mais simplificada e mais rápida.
-    pokemonList.innerHTML += pokemons.map(convertPokemonToLi).join('')
-})
-
-/*pokeApi.getPokemons().then((pokemons = []) => {                  //Aqui seria o 'passo-a-passo de como funciona
-    const listItems = []
-
-   const newList = pokemons.map((pokemon) =>  convertPokemonToLi(pokemon))
-
-    const newHtml = newList.join('')
-
-    pokemonList.innerHTML += newHtml
-
-    /*for (let i = 0; i < pokemons.length; i++) {
-        const pokemon = pokemons[i];
-        listItems.push(convertPokemonToLi(pokemon))
-    }
-
-    console.log(listItems)
-
-    pokemonList.innerHTML += convertPokemonToLi(pokemon)
-})*/
+loadPokemonItens(offset, limit)
