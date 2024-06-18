@@ -12,6 +12,8 @@ body {
 .content {
     padding: 1rem;
     background-color: white;
+    width: 100vw;
+    height: 100vh;
 }
 
 .content .text{
@@ -36,19 +38,6 @@ body {
     100%{
         background-position: 400%;
     }
-}
-
-@media screen and (min-width: 992px) {
-    .content {
-        max-width: 992px;
-        margin: 0 auto;
-    }    
-}
-
-@media screen and (min-width: 992px) {
-    .pokemons {
-       grid-template-columns: 1fr 1fr 1fr;
-    }    
 }
 
 @keyframes pulsar-cor {

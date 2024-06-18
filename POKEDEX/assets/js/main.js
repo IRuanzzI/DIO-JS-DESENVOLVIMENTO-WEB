@@ -1,8 +1,7 @@
 const pokemonList = document.getElementById('pokemonList')
 const loadMoreButton = document.getElementById('loadMoreButton')
-
-const maxRecords = 151
-const limit = 15
+const maxRecords = 150;
+const limit = 20;
 let offset = 0;
 
 function convertPokemonToLi(pokemon) {
@@ -31,3 +30,19 @@ function loadPokemonItens(offset, limit) {
 }
 
 loadPokemonItens(offset, limit)
+
+loadMoreButton.addEventListener('click', () => {
+    offset += limit
+
+    const qtdRecordNextPage = offset + limit
+
+    if (qtdRecordNextPage >= maxRecords) {
+        const newLimit = maxRecords - offset
+        loadPokemonItens(offset, newLimit)
+        
+        loadMoreButton.parentElement.removeChild(loadMoreButton)
+    }else{
+
+        loadPokemonItens(offset, limit);
+    }    
+})
