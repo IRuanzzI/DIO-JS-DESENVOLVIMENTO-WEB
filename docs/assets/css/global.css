@@ -18,6 +18,21 @@ body {
     flex: 1;
 }
 
+
+#buscador{
+    text-align:center;
+    border-radius: 10px;
+    font-size:x-small;
+    margin-bottom:10px;
+    justify-content:center;
+    width:100%;
+}
+
+#buscador::placeholder {
+    opacity:0.8;
+    color:orange;
+}
+
 .content .text {
     text-align: center;
     text-transform: uppercase;
